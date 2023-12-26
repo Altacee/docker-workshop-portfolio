@@ -1,12 +1,18 @@
 version: '3'
 
 services:
-  nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
+  web:
+    build: .
+    command: python portfolio/manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./html:/usr/share/nginx/html
-    restart: always
+      - .:/code
+    environment:
+      - TITLE=iArtemis Website
+      - NAME=Aditya Kushwaha
+      - WEBSITE_NAME=iArtemis
+      - EMAIL=_@iartemis.in
+      - PHONE=+91 9131269696
+      - PROFILE_URL=https://media.licdn.com/dms/image/C4E03AQHXniG1Llcn2g/profile-displayphoto-shrink_200_200/0/1632313217227?e=1709164800&v=beta&t=Ltfe1-kyn0mHz5Zni5t0HzbeYyDQbiTEOm2OuLH7xMI
+    ports:
+      - "8000:8000"
+

@@ -1,8 +1,15 @@
-# Use the official Nginx base image
-FROM nginx:latest
+FROM python:3.8
 
-# Expose port 80 for incoming traffic
-EXPOSE 80
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Start Nginx when the container starts
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /code
+
+COPY . /code/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8000
+
+CMD ["python", "portfolio/manage.py", "runserver", "0.0.0.0:8000"]
+
